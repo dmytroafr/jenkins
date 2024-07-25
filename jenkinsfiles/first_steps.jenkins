@@ -1,0 +1,48 @@
+#!groovy
+
+properties([disableConcurrentBuilds()])
+
+pipeline {
+    agent {
+        label 'main'
+    }
+    options {
+        buildDiscarder(
+                logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
+        timestamps()
+    }
+    stages {
+        stage("Preparation") {
+            steps {
+                script {
+                    // Make sure Gradle is installed
+                    sh './gradlew --version'
+                }
+            }
+        }
+        stage("Build") {
+            steps {
+                script {
+                    // Clean and build the project
+                    sh './gradlew clean build'
+                }
+            }
+        }
+        stage("Test") {
+            steps {
+                script {
+                    // Run tests
+                    sh './gradlew test'
+                }
+            }
+        }
+        stage("Run") {
+            steps {
+                script {
+                    // Run the application
+                    sh './gradlew bootRun'
+                }
+            }
+        }
+    }
+}
