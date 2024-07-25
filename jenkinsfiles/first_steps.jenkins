@@ -16,7 +16,7 @@ pipeline {
             steps {
                 script {
                     // Make sure Gradle is installed
-                    sh './gradlew --version'
+                    sh 'gradle --version'
                 }
             }
         }
@@ -24,7 +24,7 @@ pipeline {
             steps {
                 script {
                     // Clean and build the project
-                    sh './gradlew clean build'
+                    sh 'gradle clean build'
                 }
             }
         }
@@ -32,7 +32,7 @@ pipeline {
             steps {
                 script {
                     // Run tests
-                    sh './gradlew test'
+                    sh 'gradle test'
                 }
             }
         }
