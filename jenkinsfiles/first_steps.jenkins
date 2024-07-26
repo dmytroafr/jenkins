@@ -11,6 +11,9 @@ pipeline {
                 logRotator(numToKeepStr: '10', artifactNumToKeepStr: '10'))
         timestamps()
     }
+    environment {
+        PATH = "/usr/local/bin:$PATH" // Додайте шлях до Gradle до PATH
+    }
     stages {
         stage("Preparation") {
             steps {
